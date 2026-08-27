@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Motor Dashboard</title>
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<div id="conn-banner" class="hidden">Keine Verbindung zum NMEA2000-Empfänger…</div>
+
+<div class="dashboard">
+
+  <div class="row row-main">
+    <div class="gauge-box big">
+      <canvas id="gauge-rpm"></canvas>
+    </div>
+    <div class="gauge-box big">
+      <canvas id="gauge-speed"></canvas>
+    </div>
+  </div>
+
+  <div class="row row-secondary">
+    <div class="gauge-box small">
+      <canvas id="gauge-oil"></canvas>
+    </div>
+    <div class="gauge-box small">
+      <canvas id="gauge-temp"></canvas>
+    </div>
+    <div class="gauge-box small">
+      <canvas id="gauge-volt"></canvas>
+    </div>
+    <div class="gauge-box small">
+      <canvas id="gauge-compass"></canvas>
+    </div>
+  </div>
+
+  <div class="row row-tanks">
+    <div class="tank-box">
+      <canvas id="tank-fuel"></canvas>
+      <div class="tank-label">Benzin</div>
+    </div>
+    <div class="tank-box">
+      <canvas id="tank-fresh"></canvas>
+      <div class="tank-label">Frischwasser</div>
+    </div>
+    <div class="tank-box">
+      <canvas id="tank-black"></canvas>
+      <div class="tank-label">Schwarzwasser</div>
+    </div>
+    <div class="rudder-box">
+      <canvas id="gauge-rudder"></canvas>
+      <div class="tank-label">Ruder</div>
+    </div>
+  </div>
+
+</div>
+
+<script src="/static/js/gauges.js"></script>
+<script src="/static/js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: #0b0e12;
+  color: #e8edf2;
+  font-family: "DejaVu Sans", Arial, sans-serif;
+  overflow: hidden;
+  user-select: none;
+}
+
+#conn-banner {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: #7a1f1f;
+  color: #fff;
+  text-align: center;
+  padding: 6px;
+  font-size: 14px;
+  z-index: 100;
+  letter-spacing: 0.5px;
+}
+#conn-banner.hidden { display: none; }
+
+.dashboard {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  gap: 8px;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.row-main {
+  flex: 3;
+}
+
+.row-secondary {
+  flex: 2;
+}
+
+.row-tanks {
+  flex: 2;
+}
+
+.gauge-box {
+  background: #12161c;
+  border: 1px solid #232a33;
+  border-radius: 10px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  min-width: 0;
+  min-height: 0;
+}
+
+.gauge-box canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.tank-box, .rudder-box {
+  background: #12161c;
+  border: 1px solid #232a33;
+  border-radius: 10px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 0;
+  min-width: 0;
+  min-height: 0;
+}
+
+.tank-box canvas, .rudder-box canvas {
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  min-height: 0;
+}
+
+.tank-label {
+  font-size: 14px;
+  color: #93a0ad;
+  letter-spacing: 0.5px;
+  padding-top: 2px;
+}
+
+/* Feinabstimmung exakt für 1280x800-Displays: feste Pixelhöhen statt
+   Flex-Verhältnissen, damit die Fläche randlos ausgenutzt wird und keine
+   Rundungs-Lücken/Scrollbalken entstehen. Auf anderen Auflösungen greifen
+   weiterhin die flexiblen Verhältnisse oben. */
+@media (width: 1280px) and (height: 800px) {
+  .dashboard { padding: 10px; gap: 10px; }
+  .row { gap: 10px; }
+  .row-main { flex: 0 0 360px; }
+  .row-secondary { flex: 0 0 200px; }
+  .row-tanks { flex: 0 0 200px; }
+  .tank-label { font-size: 15px; }
+}

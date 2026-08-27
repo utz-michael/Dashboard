@@ -1,0 +1,15 @@
+[Unit]
+Description=Motor Dashboard - NMEA2000 Backend
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/boat-dashboard/backend
+ExecStart=/home/pi/boat-dashboard/backend/venv/bin/python /home/pi/boat-dashboard/backend/app.py
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
