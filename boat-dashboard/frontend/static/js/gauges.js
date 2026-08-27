@@ -38,8 +38,8 @@ class RadialGauge {
     const cfg = this.cfg;
     ctx.clearRect(0, 0, w, h);
 
-    const cx = w / 2, cy = h / 2 + h * 0.05;
-    const radius = Math.min(w, h) * 0.42;
+    const cx = w / 2, cy = h / 2 + h * 0.03;
+    const radius = Math.min(w, h) * 0.36;
     const startRad = deg2rad(cfg.startAngle);
     const endRad = deg2rad(cfg.startAngle + cfg.sweep);
     const valToAngle = (v) => deg2rad(cfg.startAngle + cfg.sweep * (clamp(v, cfg.min, cfg.max) - cfg.min) / (cfg.max - cfg.min));
@@ -62,12 +62,12 @@ class RadialGauge {
 
     // Ticks + Labels
     ctx.fillStyle = "#93a0ad";
-    ctx.font = `${Math.round(radius * 0.14)}px sans-serif`;
+    ctx.font = `${Math.round(radius * 0.13)}px sans-serif`;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     for (let v = cfg.min; v <= cfg.max + 1e-9; v += cfg.majorStep) {
       const a = valToAngle(v);
-      const r1 = radius * 1.12, r2 = radius * 1.28;
+      const r1 = radius * 1.08, r2 = radius * 1.15;
       ctx.strokeStyle = "#4a5560";
       ctx.lineWidth = 2;
       ctx.beginPath();
@@ -205,8 +205,8 @@ class CompassGauge {
   render() {
     const { ctx, w, h } = fitCanvas(this.canvas);
     ctx.clearRect(0, 0, w, h);
-    const cx = w / 2, cy = h / 2 + h * 0.02;
-    const radius = Math.min(w, h) * 0.38;
+    const cx = w / 2, cy = h / 2;
+    const radius = Math.min(w, h) * 0.32;
 
     ctx.strokeStyle = "#1c232c";
     ctx.lineWidth = radius * 0.10;
@@ -221,7 +221,7 @@ class CompassGauge {
     ctx.textBaseline = "middle";
     dirs.forEach(([label, deg]) => {
       const a = deg2rad(deg - 90);
-      const r = radius * 1.22;
+      const r = radius * 1.15;
       ctx.fillText(label, cx + r * Math.cos(a), cy + r * Math.sin(a));
     });
     for (let deg = 0; deg < 360; deg += 30) {
