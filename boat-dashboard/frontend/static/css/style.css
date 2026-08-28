@@ -3,8 +3,8 @@
 html, body {
   width: 100%;
   height: 100%;
-  background: #0b0e12;
-  color: #e8edf2;
+  background: #eef1f4;
+  color: #10151c;
   font-family: "DejaVu Sans", Arial, sans-serif;
   overflow: hidden;
   user-select: none;
@@ -51,8 +51,8 @@ html, body {
 }
 
 .gauge-box {
-  background: #12161c;
-  border: 1px solid #232a33;
+  background: #ffffff;
+  border: 2px solid #aab6c2;
   border-radius: 10px;
   flex: 1;
   display: flex;
@@ -70,8 +70,8 @@ html, body {
 }
 
 .tank-box, .rudder-box {
-  background: #12161c;
-  border: 1px solid #232a33;
+  background: #ffffff;
+  border: 2px solid #aab6c2;
   border-radius: 10px;
   flex: 1;
   display: flex;
@@ -92,7 +92,8 @@ html, body {
 
 .tank-label {
   font-size: 14px;
-  color: #93a0ad;
+  font-weight: 600;
+  color: #3a4552;
   letter-spacing: 0.5px;
   padding-top: 2px;
 }

@@ -26,7 +26,7 @@ class RadialGauge {
       min: 0, max: 100, unit: "", label: "",
       decimals: 0, majorStep: 10, zones: [],
       startAngle: 135, sweep: 270,
-      needleColor: "#e8edf2", valueNoData: "--",
+      needleColor: "#10151c", valueNoData: "--",
     }, cfg);
     this.value = null;
   }
@@ -45,8 +45,8 @@ class RadialGauge {
     const valToAngle = (v) => deg2rad(cfg.startAngle + cfg.sweep * (clamp(v, cfg.min, cfg.max) - cfg.min) / (cfg.max - cfg.min));
 
     // Hintergrund-Track
-    ctx.lineWidth = radius * 0.14;
-    ctx.strokeStyle = "#1c232c";
+    ctx.lineWidth = radius * 0.15;
+    ctx.strokeStyle = "#d7dee4";
     ctx.lineCap = "butt";
     ctx.beginPath();
     ctx.arc(cx, cy, radius, startRad, endRad, false);
@@ -61,15 +61,15 @@ class RadialGauge {
     });
 
     // Ticks + Labels
-    ctx.fillStyle = "#93a0ad";
-    ctx.font = `${Math.round(radius * 0.13)}px sans-serif`;
+    ctx.fillStyle = "#3a4552";
+    ctx.font = `600 ${Math.round(radius * 0.13)}px sans-serif`;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     for (let v = cfg.min; v <= cfg.max + 1e-9; v += cfg.majorStep) {
       const a = valToAngle(v);
       const r1 = radius * 1.08, r2 = radius * 1.15;
-      ctx.strokeStyle = "#4a5560";
-      ctx.lineWidth = 2;
+      ctx.strokeStyle = "#5b6b7a";
+      ctx.lineWidth = 2.5;
       ctx.beginPath();
       ctx.moveTo(cx + r1 * Math.cos(a), cy + r1 * Math.sin(a));
       ctx.lineTo(cx + radius * 1.0 * Math.cos(a), cy + radius * 1.0 * Math.sin(a));
@@ -82,14 +82,14 @@ class RadialGauge {
     if (this.value !== null && this.value !== undefined) {
       const a = valToAngle(this.value);
       ctx.strokeStyle = cfg.needleColor;
-      ctx.lineWidth = Math.max(3, radius * 0.045);
+      ctx.lineWidth = Math.max(4, radius * 0.055);
       ctx.lineCap = "round";
       ctx.beginPath();
       ctx.moveTo(cx - radius * 0.12 * Math.cos(a), cy - radius * 0.12 * Math.sin(a));
       ctx.lineTo(cx + radius * 0.92 * Math.cos(a), cy + radius * 0.92 * Math.sin(a));
       ctx.stroke();
     }
-    ctx.fillStyle = "#e8edf2";
+    ctx.fillStyle = "#10151c";
     ctx.beginPath();
     ctx.arc(cx, cy, radius * 0.07, 0, Math.PI * 2);
     ctx.fill();
@@ -98,13 +98,13 @@ class RadialGauge {
     const valText = (this.value === null || this.value === undefined)
       ? cfg.valueNoData
       : this.value.toFixed(cfg.decimals);
-    ctx.fillStyle = "#f5f8fa";
+    ctx.fillStyle = "#0a0e13";
     ctx.font = `bold ${Math.round(radius * 0.42)}px sans-serif`;
     ctx.fillText(valText, cx, cy - radius * 0.42);
-    ctx.fillStyle = "#93a0ad";
-    ctx.font = `${Math.round(radius * 0.16)}px sans-serif`;
+    ctx.fillStyle = "#3a4552";
+    ctx.font = `600 ${Math.round(radius * 0.16)}px sans-serif`;
     ctx.fillText(cfg.unit, cx, cy - radius * 0.10);
-    ctx.font = `${Math.round(radius * 0.15)}px sans-serif`;
+    ctx.font = `600 ${Math.round(radius * 0.15)}px sans-serif`;
     ctx.fillText(cfg.label, cx, cy + radius * 0.55);
   }
 }
@@ -125,8 +125,8 @@ class TankBar {
     const barH = h - padTop - padBottom;
     const x = padX, y = padTop;
 
-    ctx.strokeStyle = "#4a5560";
-    ctx.lineWidth = 2;
+    ctx.strokeStyle = "#5b6b7a";
+    ctx.lineWidth = 2.5;
     ctx.strokeRect(x, y, barW, barH);
 
     const pct = this.value === null || this.value === undefined ? null : clamp(this.value, 0, 100);
@@ -136,7 +136,7 @@ class TankBar {
       ctx.fillRect(x + 2, y + barH - 2 - fillH, barW - 4, fillH);
     }
 
-    ctx.fillStyle = "#f5f8fa";
+    ctx.fillStyle = "#0a0e13";
     ctx.font = `bold ${Math.round(w * 0.20)}px sans-serif`;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
@@ -159,20 +159,20 @@ class RudderGauge {
     const trackW = w * 0.8, trackH = h * 0.18;
     const x0 = cx - trackW / 2;
 
-    ctx.strokeStyle = "#4a5560";
-    ctx.lineWidth = 2;
+    ctx.strokeStyle = "#5b6b7a";
+    ctx.lineWidth = 2.5;
     ctx.strokeRect(x0, cy - trackH / 2, trackW, trackH);
     // Mittelmarkierung
     ctx.beginPath();
     ctx.moveTo(cx, cy - trackH / 2 - 6);
     ctx.lineTo(cx, cy + trackH / 2 + 6);
-    ctx.strokeStyle = "#6b7684";
+    ctx.strokeStyle = "#3a4552";
     ctx.stroke();
 
     const v = this.value === null || this.value === undefined ? null : clamp(this.value, -this.cfg.range, this.cfg.range);
     if (v !== null) {
       const px = cx + (v / this.cfg.range) * (trackW / 2);
-      ctx.fillStyle = "#ffb020";
+      ctx.fillStyle = "#c0392b";
       ctx.beginPath();
       ctx.moveTo(px, cy - trackH / 2 - 10);
       ctx.lineTo(px - 8, cy - trackH / 2 - 22);
@@ -181,14 +181,14 @@ class RudderGauge {
       ctx.fill();
     }
 
-    ctx.fillStyle = "#93a0ad";
-    ctx.font = `${Math.round(h * 0.14)}px sans-serif`;
+    ctx.fillStyle = "#3a4552";
+    ctx.font = `600 ${Math.round(h * 0.14)}px sans-serif`;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.fillText("P", x0 - 14, cy);
     ctx.fillText("S", x0 + trackW + 14, cy);
 
-    ctx.fillStyle = "#f5f8fa";
+    ctx.fillStyle = "#0a0e13";
     ctx.font = `bold ${Math.round(h * 0.22)}px sans-serif`;
     ctx.fillText(v === null ? "--" : `${v.toFixed(0)}°`, cx, cy + h * 0.30);
   }
@@ -208,15 +208,15 @@ class CompassGauge {
     const cx = w / 2, cy = h / 2;
     const radius = Math.min(w, h) * 0.32;
 
-    ctx.strokeStyle = "#1c232c";
-    ctx.lineWidth = radius * 0.10;
+    ctx.strokeStyle = "#d7dee4";
+    ctx.lineWidth = radius * 0.12;
     ctx.beginPath();
     ctx.arc(cx, cy, radius, 0, Math.PI * 2);
     ctx.stroke();
 
     const dirs = [["N", 0], ["E", 90], ["S", 180], ["W", 270]];
-    ctx.fillStyle = "#93a0ad";
-    ctx.font = `${Math.round(radius * 0.22)}px sans-serif`;
+    ctx.fillStyle = "#3a4552";
+    ctx.font = `700 ${Math.round(radius * 0.22)}px sans-serif`;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     dirs.forEach(([label, deg]) => {
@@ -227,8 +227,8 @@ class CompassGauge {
     for (let deg = 0; deg < 360; deg += 30) {
       const a = deg2rad(deg - 90);
       const r1 = radius * 0.95, r2 = radius * 1.05;
-      ctx.strokeStyle = "#4a5560";
-      ctx.lineWidth = 2;
+      ctx.strokeStyle = "#5b6b7a";
+      ctx.lineWidth = 2.5;
       ctx.beginPath();
       ctx.moveTo(cx + r1 * Math.cos(a), cy + r1 * Math.sin(a));
       ctx.lineTo(cx + r2 * Math.cos(a), cy + r2 * Math.sin(a));
@@ -237,7 +237,7 @@ class CompassGauge {
 
     if (this.heading !== null && this.heading !== undefined) {
       const a = deg2rad(this.heading - 90);
-      ctx.fillStyle = "#ff5a5a";
+      ctx.fillStyle = "#c0392b";
       ctx.beginPath();
       ctx.moveTo(cx + radius * 0.85 * Math.cos(a), cy + radius * 0.85 * Math.sin(a));
       ctx.lineTo(cx + radius * 0.15 * Math.cos(a + 2.9), cy + radius * 0.15 * Math.sin(a + 2.9));
@@ -247,14 +247,14 @@ class CompassGauge {
     }
 
     const txt = (this.heading === null || this.heading === undefined) ? "--" : `${Math.round(this.heading)}°`;
-    ctx.fillStyle = "#f5f8fa";
+    ctx.fillStyle = "#0a0e13";
     ctx.font = `bold ${Math.round(radius * 0.42)}px sans-serif`;
     ctx.fillText(txt, cx, cy - radius * 0.02);
-    ctx.fillStyle = "#93a0ad";
-    ctx.font = `${Math.round(radius * 0.16)}px sans-serif`;
+    ctx.fillStyle = "#3a4552";
+    ctx.font = `600 ${Math.round(radius * 0.16)}px sans-serif`;
     ctx.fillText(this.ref === "magnetic" ? "MAG" : this.ref === "true" ? "TRUE" : "", cx, cy + radius * 0.32);
-    ctx.font = `${Math.round(radius * 0.15)}px sans-serif`;
-    ctx.fillStyle = "#93a0ad";
+    ctx.font = `600 ${Math.round(radius * 0.15)}px sans-serif`;
+    ctx.fillStyle = "#3a4552";
     ctx.fillText("Kompass", cx, cy + radius * 0.60);
   }
 }
